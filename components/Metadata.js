@@ -2,20 +2,20 @@ import { useState, useEffect } from "react";
 import * as React from 'react';
 import Constants from 'expo-constants';
 import {   
-    Dimensions,
+  Dimensions,
   FlatList,
   StyleSheet,
   Text,
   View,ScrollView,
   Button, TextInput,
   TouchableOpacity} from 'react-native';
-
+import Checkbox from 'expo-checkbox';
 import storageHelper from '../helpers/storageHelper.js';
 import Storage from 'expo-storage';
 
 const fields = [
   {"name":"Friend Code"},
-  //{"name":"Sega ID"},
+  {"name":"Custom Timeout"},
   //{"name":"Password"},
   //{"name":"Form URL"},
 ];
@@ -38,7 +38,7 @@ export default function Metadata({navigation, route}){
     console.log(metadata);
     let fieldVarsValues = [];
     fieldVarsValues.push(metadata["friendCode"]);
-    //fieldVarsValues.push(metadata["segaID"]);
+    fieldVarsValues.push(metadata["timeout"]);
     //fieldVarsValues.push(metadata["password"]);
     //fieldVarsValues.push(metadata["url"]);
     setFieldVars(fieldVarsValues);
@@ -55,8 +55,7 @@ export default function Metadata({navigation, route}){
   function saveData(){
     let data = {
       "friendCode": fieldVars[0], 
-      //"segaID": fieldVars[1], 
-      //"password": fieldVars[2], 
+      "timeout": fieldVars[1], 
       //"url": fieldVars[3], 
     };
     Storage.setItem({ key: `metadata`, value: JSON.stringify(data) })
@@ -72,18 +71,32 @@ export default function Metadata({navigation, route}){
       fields.map((item, index) => {
         return (<View style={[styles.item, { flexDirection: "row" }]}  >
           <Text>{item.name}: </Text>
-          <TextInput 
-          style={{ borderBottomColor: 'lightgray',
-        borderBottomWidth: 1, minWidth:30}}
-          editable
-          defaultValue={fieldVars[index]}
-          onChangeText={text => {
-            let newFieldVars = fieldVars;fieldVars[index] = text;
-            console.log("### set ##################");
-            console.log(newFieldVars);
-            setFieldVars(newFieldVars);
-          }}
-          />
+          {
+            item.type == "checkbox" 
+            ?
+            <Checkbox 
+              style={styles.checkbox}
+              value={fieldVars[index]} 
+              onValueChange={val => {
+                let newFieldVars = fieldVars;fieldVars[index] = val;
+                console.log("### set ##################");
+                console.log(newFieldVars);
+                setFieldVars(newFieldVars);
+              }} 
+            />
+            :
+            <TextInput 
+              style={{ borderBottomColor: 'lightgray', borderBottomWidth: 1, minWidth:30}}
+              editable
+              defaultValue={fieldVars[index]}
+              onChangeText={text => {
+                let newFieldVars = fieldVars;fieldVars[index] = text;
+                console.log("### set ##################");
+                console.log(newFieldVars);
+                setFieldVars(newFieldVars);
+              }}
+            />
+          }
         </View>);
       })
     }

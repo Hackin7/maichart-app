@@ -42,7 +42,9 @@ class ProcessingData {
           // Stage 4 - return
           case "https://maimaidx-eng.com/maimai-mobile/friend/accept/":
             // Open Sega ID
-            ReactNativeWebView.postMessage(document.cookie);
+            setTimeout(function(){
+              ReactNativeWebView.postMessage(document.cookie);
+            }, 1000);
           default:
             //alert(window.location.href);
             break;
@@ -53,7 +55,7 @@ class ProcessingData {
         catch (err) {
           alert("App Error: "+err);
         }
-      }, 1000);
+      }, ${this.metadata.timeout ? this.metadata.timeout : 500});
     `;
   }
 
@@ -89,7 +91,7 @@ export default function AcceptFriend({navigation}) {
       javaScriptEnabled={true}
       injectedJavaScript={autofillScript}    
       onMessage={(event) => {
-        //navigation.goBack();
+        navigation.goBack();
       }}
     />
   );
