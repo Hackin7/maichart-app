@@ -6,12 +6,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './components/Home.js';
-import DataEntry from './components/DataEntry.js';
-import Instructor from './components/Instructor.js';
 import Metadata from './components/Metadata.js';
 import Form from './components/Form.js';
 import AcceptFriend from './components/AcceptFriend.js';
-import DataManagement from './components/DataManagement.js';
+import Bookmarklet from './components/Bookmarklet.js';
 
 ////Components//////////////////////////////////////////////////////////
 
@@ -23,11 +21,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Form" component={Form} />
         <Stack.Screen name="AcceptFriend" component={AcceptFriend} />
-        
-        <Stack.Screen name="DataEntry" component={DataEntry} />
-        <Stack.Screen name="Instructor" component={Instructor} />
+        <Stack.Screen name="Bookmarklet" component={Bookmarklet} />
         <Stack.Screen name="Metadata" component={Metadata} />
-        <Stack.Screen name="DataManagement" component={DataManagement} />
       </Stack.Navigator>
     </NavigationContainer>
   );
