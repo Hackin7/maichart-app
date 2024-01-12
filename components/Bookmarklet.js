@@ -55,29 +55,22 @@ export default function Bookmarklet({navigation}) {
   const [depth, setDepth] = useState(0);
 
   // https://stackoverflow.com/questions/65882469/react-native-webview-make-back-button-on-android-go-back - another potential method
-  // https://reactnavigation.org/docs/preventing-going-back/
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', (e) => {
-        console.log("### DEPTH ###########################");
-        console.log(depth);
-        
-        if (depth <= 1) {
-          return;
-        }
-
-        e.preventDefault(); // Prevent default behavior of leaving the screen
-        try {
-          setDepth(depth - 1);
-          console.log("### DEPTH REMOVAL ###########################");
-          console.log(depth-1);  // a bit buggy but will fix soon
+  const handleBackButtonPress = () => {
+      try {
           webViewRef.current?.goBack();
-        } catch (err) {
-            console.log("[handleBackButtonPress] Error : ", err.message)
-        }
-      }),
-    [navigation, depth]
-  );
+          return true;
+      } catch (err) {
+          console.log("[handleBackButtonPress] Error : ", err.message)
+      }
+  }
+
+  useEffect(() => {
+      BackHandler.addEventListener("hardwareBackPress", handleBackButtonPress)
+      return () => {
+          BackHandler.removeEventListener("hardwareBackPress", handleBackButtonPress)
+      };
+  }, []);
+  // https://reactnavigation.org/docs/preventing-going-back/
 
   Storage.getItem({ key: `metadata`}).then((value)=>{
     console.log("### Storage Start ##############")
