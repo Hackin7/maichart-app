@@ -36,6 +36,8 @@ export default function Home({navigation}){
     <Button onPress={()=>{navigation.navigate("Metadata")}} color="#696969" style={{ backgroundColor: "#696969", marginTop:50}} title='Configuration' />
     <View style={{padding:5}}></View>
     <Button onPress={()=>{navigation.navigate("Form")}} color="#696969" style={{ backgroundColor: "#696969", marginTop:50}} title='Check' />
+    <View style={{padding:5}}></View>
+    <Button onPress={()=>{navigation.navigate("Bookmarklet")}} color="#696969" style={{ backgroundColor: "#696969", marginTop:50}} title='Bookmarklet' />
 		</View>
 	);
 }

@@ -48,22 +48,23 @@ class ProcessingData {
       }
       function run() {
         switch (window.location.href){
-          case "https://maichart-kr.nuko.cat/":
+          case "${this.metadata.url ? this.metadata.url : "https://maichart-en.nuko.cat/"}":
             //translate(); // not working somehow - ruining captcha
             document.getElementsByClassName("input100").friend_code.value = "${this.metadata.friendCode}"; 
             //document.getElementsByClassName("wrap-input100")[1].childNodes[1].value = "rating_festival_plus_int";       
             break;
-          case "https://maichart-kr.nuko.cat/request_friend.neko":
+          case "${this.metadata.url ? this.metadata.url : "https://maichart-en.nuko.cat/"}request_friend.neko":
             // Open Sega ID
             document.body.innerHTML = document.body.innerHTML.replaceAll("p-t-50", "");
             document.body.innerHTML = document.body.innerHTML.replace(
               "친구 요청을 수락한 후", 
               "The app will automatically accept <br/>ＣＡＴ．ＢＯＴ♪ friend request.<br/> After that,"
             );
-            translate();
+            //translate();
             ReactNativeWebView.postMessage("login");
           default:
-            translate();
+            //translate();
+            //alert(window.location.href);
             break;
         }
       }
@@ -89,7 +90,7 @@ export default function Form({navigation}) {
     console.log("### Storage Start ##############")
     console.log("metadata", value);
     const metadata = value;
-    setURL("https://maichart-kr.nuko.cat/"); //JSON.parse(metadata).url);
+    setURL(JSON.parse(metadata).url ? JSON.parse(metadata).url : "https://maichart-en.nuko.cat/"); //"https://maichart-kr.nuko.cat/"); //JSON.parse(metadata).url);
     Storage.getItem({ key: `staff`}).then((value)=>{
       const staff = value;
       console.log("staff", value);
