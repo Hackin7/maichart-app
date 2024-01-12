@@ -16,8 +16,8 @@ import Storage from 'expo-storage';
 const fields = [
   {"name":"Friend Code"},
   {"name":"Custom Timeout"},
+  {"name":"Custom Form URL"},
   //{"name":"Password"},
-  //{"name":"Form URL"},
 ];
 
 let run = false;
@@ -39,7 +39,7 @@ export default function Metadata({navigation, route}){
     let fieldVarsValues = [];
     fieldVarsValues.push(metadata["friendCode"]);
     fieldVarsValues.push(metadata["timeout"]);
-    //fieldVarsValues.push(metadata["password"]);
+    fieldVarsValues.push(metadata["url"]);
     //fieldVarsValues.push(metadata["url"]);
     setFieldVars(fieldVarsValues);
     console.log(fieldVars);
@@ -56,7 +56,7 @@ export default function Metadata({navigation, route}){
     let data = {
       "friendCode": fieldVars[0], 
       "timeout": fieldVars[1], 
-      //"url": fieldVars[3], 
+      "url": fieldVars[2], 
     };
     Storage.setItem({ key: `metadata`, value: JSON.stringify(data) })
     .then(() => {
