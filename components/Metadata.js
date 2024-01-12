@@ -17,7 +17,7 @@ const fields = [
   {"name":"Friend Code"},
   {"name":"Custom Timeout"},
   {"name":"Custom Form URL"},
-  //{"name":"Password"},
+  {"name":"Custom Bookmarklet"},
 ];
 
 let run = false;
@@ -40,6 +40,7 @@ export default function Metadata({navigation, route}){
     fieldVarsValues.push(metadata["friendCode"]);
     fieldVarsValues.push(metadata["timeout"]);
     fieldVarsValues.push(metadata["url"]);
+    fieldVarsValues.push(metadata["bookmarklet"]);
     //fieldVarsValues.push(metadata["url"]);
     setFieldVars(fieldVarsValues);
     console.log(fieldVars);
@@ -57,6 +58,7 @@ export default function Metadata({navigation, route}){
       "friendCode": fieldVars[0], 
       "timeout": fieldVars[1], 
       "url": fieldVars[2], 
+      "bookmarklet": fieldVars[3], 
     };
     Storage.setItem({ key: `metadata`, value: JSON.stringify(data) })
     .then(() => {
