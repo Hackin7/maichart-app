@@ -26,7 +26,7 @@
     "expo-modules-autolinking": "~1.5.0",
     "expo-status-bar": "~1.6.0",
     "expo-storage": "*",
-    "expo-updates": "~0.18.18",
+    "expo-updates": "~0.18.19",
     "lodash": "*",
     "react": "18.2.0",
     "react-dom": "18.2.0",

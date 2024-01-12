@@ -29,9 +29,40 @@ class ProcessingData {
     // https://stackoverflow.com/questions/53628112/fill-angular-input-using-javascript
     return `
       function run() {
-        javascript:(function(d){if(["https://maimaidx.jp","https://maimaidx-eng.com"].indexOf(d.location.origin)>=0){var s=d.createElement("script");s.src="https://myjian.github.io/mai-tools/scripts/all-in-one.js?t="+Math.floor(Date.now()/60000);d.body.append(s);}})(document);
-        window.removeEventListener('message', window.ratingCalcMsgListener);
+        const iframe = document.createElement('iframe');
+        iframe.name = 'selfRating'; 
+        iframe.id = 'aaa';
+        iframe.style = "width: 100%; height: 70%; resize: vertical; " ;
+
+        switch (window.location.href){
+          case "https://maimaidx-eng.com/maimai-mobile/friend/":
+            iframe.name = "friendRating";
+            break;
+          default:
+            break;
+        }
+
+        document.body.innerHTML = iframe.outerHTML + document.body.innerHTML;
+        
+
+        
+        // Bookmarklet
+        javascript:(function(d){if(["https://maimaidx.jp","https://maimaidx-eng.com"].indexOf(d.location.origin)>=0){var s=d.createElement("script");s.src="https://hackin7.github.io/mai-tools-custom/build/scripts/all-in-one.js?t="+Math.floor(Date.now()/60000);d.body.append(s);}})(document);
+        //window.removeEventListener('message', window.ratingCalcMsgListener);
         ReactNativeWebView.postMessage("newPage");
+
+        //document.body.innerHTML = document.body.innerHTML.replaceAll('target="selfRating"', 'target="rating"');
+        //document.body.innerHTML = document.body.innerHTML.replaceAll('target="friendRating"', 'target="rating"');
+
+        switch (window.location.href){
+          case "https://maimaidx-eng.com/maimai-mobile/friend/":
+            iframe.name = "friendRating";
+            //alert(iframe.outerHTML);
+            break;
+          default:
+            break;
+        }
+
       }
       setTimeout(function(){
         try {run();}
@@ -96,6 +127,7 @@ export default function Bookmarklet({navigation}) {
       javaScriptEnabled={true}
       injectedJavaScript={autofillScript}    
       onMessage={(event) => {
+        console.log(event.message);
         console.log("### DEPTH ###########################");
         console.log(depth + 1);
         setDepth(depth + 1);
