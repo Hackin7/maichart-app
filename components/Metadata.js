@@ -102,6 +102,7 @@ export default function Metadata({navigation, route}){
         </View>);
       })
     }
+    <Text>This maichart app has autoupdate</Text>
     <Button onPress={saveData} title="Save" />  
     </View>
   );

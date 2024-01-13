@@ -9,10 +9,13 @@ I too lazy accept friend request 10 thousand times so use this app to automate i
 3. The app then automatically accept's CAT BOT's friend request.
 4. Click next and you'll get your charts, translated
 
+# Other Features
+
+1. [Custom bookmarklet](https://github.com/Hackin7/mai-tools-custom) based on myjian's bookmarklet 
 
 # Build Instructions
 
 ```
-eas update
-eas build --profile production --platform android # Build APK
+eas update --profile preview
+eas build --profile preview --platform android # Build APK for preview & internal distribution
 ```
