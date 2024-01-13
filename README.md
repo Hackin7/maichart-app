@@ -16,6 +16,6 @@ I too lazy accept friend request 10 thousand times so use this app to automate i
 # Build Instructions
 
 ```
-eas update --profile preview
+eas update --branch preview
 eas build --profile preview --platform android # Build APK for preview & internal distribution
 ```
